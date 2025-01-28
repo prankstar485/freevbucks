@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virus Prank</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 300px;
+      padding: 20px;
+      background: red;
+      color: white;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 2px yellow;
+      animation: pop 0.3s ease forwards;
+    }
+
+    @keyframes pop {
+      to {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    #gotcha {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: lime;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="gotcha">Gotcha! It's just a prank! 😄</div>
+
+  <script>
+    function randomPosition() {
+      return {
+        top: Math.random() * window.innerHeight + "px",
+        left: Math.random() * window.innerWidth + "px",
+      };
+    }
+
+    function createPopup() {
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+      popup.innerText = 'Warning! Virus detected!';
+
+      const { top, left } = randomPosition();
+      popup.style.top = top;
+      popup.style.left = left;
+
+      document.body.appendChild(popup);
+
+      setTimeout(() => popup.remove(), 2000);
+    }
+
+    let prankActive = true;
+    setInterval(() => {
+      if (prankActive) createPopup();
+    }, 500);
+
+    setTimeout(() => {
+      prankActive = false;
+      document.getElementById('gotcha').style.display = 'block';
+    }, 10000); // Reveal after 10 seconds
+  </script>
+</body>
+</html>
